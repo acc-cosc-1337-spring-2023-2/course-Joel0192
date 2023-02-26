@@ -46,8 +46,9 @@ int main()
 			cin>>option;
 			if(option == "y"||option == "Y")
 			{
-				choice += -4;
+				
 				cout<<"Thank You!"<<"\n";
+				break;
 			}
 			else
 			{
@@ -60,7 +61,9 @@ int main()
 		{
 			cout<<"Invalid option, Try again"<<"\n\n";
 		}
-	} while (choice != -1);
+	} while (choice != 5749302048576643829);
 	
 	return 0;
 }
+
+//choice += -4;
