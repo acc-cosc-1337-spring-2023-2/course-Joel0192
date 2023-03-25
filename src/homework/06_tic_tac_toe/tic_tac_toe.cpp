@@ -2,14 +2,47 @@
 #include "tic_tac_toe.h"
 #include <iostream>
 
+void TicTacToe::set_next_player() 
+{
+    if (player == "X") 
+    {
+        player = "O";
+    }
+    else 
+    {
+        player = "X";
+    }
+}
+bool TicTacToe::check_board_full() 
+{
+    for (int i = 0; i < 9; i++) 
+    {
+        if (pegs[i] == " ") 
+        {
+            return false;
+        }
+    }
+    return true;
+}
+void TicTacToe::clear_board() 
+{
+    for (int i = 0; i < 9; i++) 
+    {
+        pegs[i] = " ";
+    }
+}
 bool TicTacToe::game_over() 
 {
     return check_board_full();
 }
 
-void TicTacToe::start_game(std::string first_player) 
+void TicTacToe::start_game(string first_player) 
 {
-    player = first_player;
+    if(first_player == "X" || first_player == "O")
+    {
+        player = first_player;
+    }
+    
     clear_board();
 }
 
@@ -26,34 +59,16 @@ std::string TicTacToe::get_player() const
 
 void TicTacToe::display_board() const 
 {
-    std::cout << pegs[0] << "|" << pegs[1] << "|" << pegs[2] << "\n";
-    std::cout << pegs[3] << "|" << pegs[4] << "|" << pegs[5] << "\n";
-    std::cout << pegs[6] << "|" << pegs[7] << "|" << pegs[8] << "\n";
-}
-
-void TicTacToe::set_next_player() 
-{
-    if (player == "X") {
-        player = "O";
-    }
-    else {
-        player = "X";
-    }
-}
-
-bool TicTacToe::check_board_full() 
-{
-    for (auto peg : pegs) {
-        if (peg == " ") {
-            return false;
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            cout<<pegs[(i * 3) + j];
+            if (j < 2){cout<<"|";}
         }
+        if(i < 2){cout<<"\n";}
     }
-    return true;
+    cout<<"\n";
 }
 
-void TicTacToe::clear_board() 
-{
-    for (auto& peg : pegs) {
-        peg = " ";
-    }
-}
+
