@@ -7,19 +7,26 @@ int main()
 
     TicTacToe play;
 
-    auto prompt = 'i';
+    auto prompt = 'Y';
 
-    do
+    while(prompt == 'Y' || prompt == 'y')
     {
         
         string first_player;
         int position;
-        while(first_player != "X" && first_player != "O")
+        while(true)
         {
             cout<<"Enter X or O: ";
             cin>>first_player;
+            if(first_player == "X" || first_player == "O")
+            {
+                break;
+            }
+            else
+            {
+                cout<<"Invalid input. Please enter X or O.\n";
+            }
         }
-        
         
         play.start_game(first_player);
 
@@ -31,12 +38,21 @@ int main()
             play.mark_board(position);
             play.display_board();
         }
-        cout<<"Game over\n\n";
+        cout<<"Game over\n"<<"The winner is "<<play.get_winner()<<".\n\n";
 
-        cout<<"Would you like to play another game? (Y/N) ";
-        cin>>prompt;
+        while (true)
+        {
+            cout<<"Would you like to play another game? (Y/N) ";
+            cin>>prompt;
+        
+            if (prompt == 'n' || prompt == 'N' || prompt == 'y' || prompt == 'Y')
+            {
+                break;
+            }
+            else{cout<<"Invalid input. Please enter a Y or N/\n";}
+        }
     } 
-    while (prompt != 'n' && prompt != 'N');
+    
 
     return 0;
 }
