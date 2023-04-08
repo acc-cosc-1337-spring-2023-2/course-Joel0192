@@ -1,10 +1,12 @@
 #include <iostream>
 #include "tic_tac_toe.h"
+#include "tic_tac_toe_manager.h"
 
 
 int main()
 {
-
+    TicTacToeManager manager;
+    int o, x, t;
     TicTacToe play;
 
     auto prompt = 'Y';
@@ -40,6 +42,14 @@ int main()
         }
         cout<<"Game over\n"<<"The winner is "<<play.get_winner()<<".\n\n";
 
+        manager.save_game(play); 
+        manager.get_winner_total(o, x, t);
+
+        
+        cout<<"O wins: "<<o<<"\n";
+        cout<<"X wins: "<<x<<"\n";
+        cout<<"Ties: "<<t<<"\n\n";
+
         while (true)
         {
             cout<<"Would you like to play another game? (Y/N) ";
@@ -52,6 +62,12 @@ int main()
             else{cout<<"Invalid input. Please enter a Y or N/\n";}
         }
     } 
+    cout<<"\n"<<manager<<"\n";
+    manager.get_winner_total(o, x, t);
+   
+    cout<<"O wins: "<<o<<"\n";
+    cout<<"X wins: "<<x<<"\n";
+    cout<<"Ties: "<<t<<"\n\n";
     
 
     return 0;
