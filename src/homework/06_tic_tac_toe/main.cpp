@@ -1,25 +1,62 @@
 #include <iostream>
 #include "tic_tac_toe.h"
 #include "tic_tac_toe_manager.h"
+#include "tic_tac_toe_3.h"
+#include "tic_tac_toe_4.h"
 
+
+using std::make_unique;
 
 int main()
 {
     TicTacToeManager manager;
+    unique_ptr<TicTacToe> game;
     int o, x, t;
-    TicTacToe play;
+    int size;
+    
 
     auto prompt = 'Y';
 
     while(prompt == 'Y' || prompt == 'y')
     {
-        
-        string first_player;
-        int position;
+
         while(true)
+        {
+            cout<<"Choose game size (3 or 4): ";
+            cin>>size;
+
+            if (size == 3 || size == 4)
+            {
+                break;
+            }
+            else
+            {
+                cout<<"Invalid input. Please enter 3 or 4.\n";
+            }
+        }
+        
+        if(size == 3)
+        {
+            game = make_unique<TicTacToe3>();
+        }
+        else
+        {
+            game = make_unique<TicTacToe4>();
+        }
+
+        string first_player;
+         while(true)
         {
             cout<<"Enter X or O: ";
             cin>>first_player;
+            if(first_player == "x")
+            {
+                first_player = "X";
+            }
+            if(first_player == "o")
+            {
+                first_player = "O";
+            }
             if(first_player == "X" || first_player == "O")
             {
                 break;
@@ -30,19 +67,16 @@ int main()
             }
         }
         
-        play.start_game(first_player);
+        game->start_game(first_player);
 
-        
-        while(play.game_over() == false)
-        {
-            cout<<"Enter position from 1 to 9: ";
-            cin>>position;
-            play.mark_board(position);
-            play.display_board();
+        while(!game->game_over())
+        {   
+            cin >> *game;
+            cout<< *game;
         }
-        cout<<"Game over\n"<<"The winner is "<<play.get_winner()<<".\n\n";
+        cout<<"Game over\n"<<"The winner is "<<game->get_winner()<<".\n\n";
 
-        manager.save_game(play); 
+        manager.save_game(game); 
         manager.get_winner_total(o, x, t);
 
         
