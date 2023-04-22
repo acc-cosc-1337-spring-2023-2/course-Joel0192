@@ -4,3 +4,16 @@
 TEST_CASE("Verify Test Configuration", "verification") {
 	REQUIRE(true == true);
 }
+TEST_CASE("Test checking one param constructor")
+{
+	CheckingAccount account(100);
+
+	REQUIRE(account.get_balance() == 100);
+}
+
+TEST_CASE("Test checking get balance ")
+{
+	CheckingAccount account;
+
+	REQUIRE(account.get_balance() == 0);
+}
