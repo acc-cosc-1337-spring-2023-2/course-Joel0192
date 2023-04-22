@@ -9,17 +9,16 @@ using std::make_unique;
 
 int main()
 {
-    TicTacToeManager manager;
+    TicTacToeData data;
+    TicTacToeManager manager(data);
     unique_ptr<TicTacToe> game;
     int o, x, t;
-    int size;
-    
-
     auto prompt = 'Y';
+    int size;
 
-    while(prompt == 'Y' || prompt == 'y')
+    do
     {
-
+        
         while(true)
         {
             cout<<"Choose game size (3 or 4): ";
@@ -44,8 +43,9 @@ int main()
             game = make_unique<TicTacToe4>();
         }
 
+        
         string first_player;
-         while(true)
+        while(true)
         {
             cout<<"Enter X or O: ";
             cin>>first_player;
@@ -66,11 +66,12 @@ int main()
                 cout<<"Invalid input. Please enter X or O.\n";
             }
         }
+      
         
         game->start_game(first_player);
-
+            
         while(!game->game_over())
-        {   
+        {    
             cin >> *game;
             cout<< *game;
         }
@@ -95,14 +96,14 @@ int main()
             }
             else{cout<<"Invalid input. Please enter a Y or N/\n";}
         }
-    } 
+    }
+    while (prompt == 'Y' || prompt == 'y');
     cout<<"\n"<<manager<<"\n";
     manager.get_winner_total(o, x, t);
-   
+
     cout<<"O wins: "<<o<<"\n";
     cout<<"X wins: "<<x<<"\n";
     cout<<"Ties: "<<t<<"\n\n";
     
-
-    return 0;
+	return 0;
 }

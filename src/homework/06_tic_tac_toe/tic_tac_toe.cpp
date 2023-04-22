@@ -1,8 +1,9 @@
 //cpp
 #include "tic_tac_toe.h"
-#include <iostream>
 
 TicTacToe::TicTacToe(int size) : pegs(size*size, " "){}
+TicTacToe::TicTacToe(vector<string> p, string win)
+  : pegs(p), winner(win){}
 
 void TicTacToe::set_next_player() 
 {
@@ -99,16 +100,22 @@ void TicTacToe::set_winner()
         winner = "X";
     }
 }
+
+vector<string> TicTacToe::get_pegs() const{return pegs;}
+
 std::ostream& operator<<(std::ostream& out, const TicTacToe& game)
 {
-    for (int i = 0; i < 3; i++)
+    int row_size = sqrt(game.pegs.size());
+    int size = static_cast<int>(game.pegs.size());
+    for (int i = 0; i < size; i++)
     {
-        for (int j = 0; j < 3; j++)
+        out << game.pegs[i];
+        if ((i + 1) % row_size == 0) 
         {
-            out<<game.pegs[(i * 3) + j];
-            if (j < 2){out<<"|";}
+            out << "\n";
+        } else {
+            out << "|";
         }
-        if(i < 2){out<<"\n";}
     }
     out<<"\n";
     return out;
@@ -116,17 +123,18 @@ std::ostream& operator<<(std::ostream& out, const TicTacToe& game)
 std::istream& operator>>(std::istream& in, TicTacToe& game)
 {
     int position;
+    int max_position = game.pegs.size();
     while(true)
     {
-        cout<<"Enter position from 1 to 9: ";
+        cout<<"Enter position from 1 to "<<max_position<<": ";
         in>>position;
-        if(position >= 1 && position <=9)
+        if(position >= 1 && position <= max_position)
         {
             break;
         }
         else
         {
-            cout<<"invalid input.  Please enter a number from 1 to 9. \n";
+            cout<<"invalid input.  Please enter a number from 1 to "<<max_position<<". \n";
         }
     }
     game.mark_board(position);

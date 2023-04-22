@@ -6,6 +6,8 @@ class TicTacToe4 : public TicTacToe
 public:
     
     TicTacToe4() : TicTacToe(4){}
+    TicTacToe4(vector<string> p, string winner) 
+     : TicTacToe(p, winner) {}
 
 private:
     
